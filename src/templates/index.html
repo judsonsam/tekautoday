@@ -1,11 +1,13 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
 
     <title>Tekau Today</title>
 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
     <meta name="HandheldFriendly" content="True">
@@ -25,10 +27,61 @@
     <meta name="description" content="Tekau Today — Ten Years Ago, Today">
     <meta name="author" content="Sam Judson and Thibaud Colas">
 </head>
+
 <body role="document">
 
-    <p>Hello, world!</p>
+    <div class="diagonal-bg">
+        <header class="section">
+            <div class="section--content__title">
+                <div class="hero-title">
+                    <h1 class="">Tekau Today.</h1>
+                    <span>New Zealand, 10 years ago</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="section margin-top-xl">
+            <div class="section--content grid">
+                <div class="col section--content-border">
+                    <h2>14 April 2015</h2>
+
+                    <img class="placeholder" src="{{ url_for('static', filename='img/placeholder-clouds-fog-haze-5086.jpeg') }}" alt="">
+                    <div class="hero-text grid">
+                        <div class="col-3-4">
+                            <h3>Name of image – dynamic</h3>
+                            <p>nyway, Tama is just some uni student in disguise, to find the true meaning of life, one must start making scones with the gumboot, mate. After the section is jumped the ditch, you add all the primo pavlovas to the kiwi you've got yourself a meal. </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="section--content grid">
+                <div class="col-1-2-push section--content-border">
+                    <h2>About</h2>
+                    <p>
+                        A bit of text about what it is that we are doing with Tekau Today. Sam and Thibaud FTW.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section footer">
+            <div class="section--content grid">
+                <div class="col-1-2-push">
+                    <div class="col-1-2">
+                        <p>Copyright 2015 Tekau Today</p>
+                    </div>
+                    <div class="col-1-2">
+                        <p>Created by Sam Judson and Thibaud Colas</p>
+                    </div>
+                </div> 
+            </div>
+        </div>
+
+
+    </div>
 
     <script src="{{ url_for('static', filename='js/bundle.js') }}"></script>
 </body>
+
 </html>

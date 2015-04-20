@@ -1,9 +1,14 @@
-# tekautoday
-Ten Years Ago, Today
+[Tekau Today](http://www.tekautoday.xyz/)
+==========
+
+> Ten Years Ago, Today
+
+- [Production site](http://www.tekautoday.xyz/)
+- [Trello board](https://trello.com/b/ytZCXTVM/tekau-today)
 
 ## Installation
 
-Those installation instructions should be executed inside the project root.
+These installation instructions should be executed inside the project root.
 
 ### Back-end setup
 
@@ -44,6 +49,8 @@ npm install
 
 ## Working on the project
 
+> Everything mentioned in the installation process should already be done.
+
 ~~~sh
 # Always start by activating Python's virtualenv.
 source env/bin/activate
@@ -59,13 +66,37 @@ npm run test
 
 The site is deployed on [Heroku](http://heroku.com/).
 
-To deploy the site, you'll need the Heroku Toolbelt: `brew install heroku-toolbelt`.
+> To deploy the site, you'll need the Heroku Toolbelt: `brew install heroku-toolbelt`, an Heroku Account, and contributor access on the project.
+
+You'll also need to do some configuration beforehand:
 
 ~~~sh
-# First log in to Heroku
+# First log in to Heroku.
 heroku login
-# Add the Heroku remote to the repository
+# Add the Heroku remote to the repository.
 heroku git:remote -r heroku -a tekautoday
-# Then push the code
-git push heroku master
+# Retrieve the deploy branch from GitHub.
+git fetch --all
+~~~
+
+Then for each deploy:
+
+~~~sh
+# Switch to the deploy branch.
+git checkout deploy
+# Rebase it from master.
+git rebase master
+# Push it to GitHub.
+git push origin deploy
+# Then push the code to Heroku.
+git push heroku deploy:master
+~~~
+
+### Other deployment configuration
+
+Only when we set up the Heroku Dyno:
+
+~~~sh
+heroku config:add BUILDPACK_URL=git://github.com/heroku/heroku-buildpack-python.git
+heroku ps:scale web=1
 ~~~
