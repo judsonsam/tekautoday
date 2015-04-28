@@ -1,4 +1,4 @@
-[Tekau Today](http://www.tekautoday.xyz/)
+[Tekau Today](http://www.tekautoday.xyz/) [![Travis](https://img.shields.io/travis/judsonsam/tekautoday.svg?style=flat-square)](https://travis-ci.org/judsonsam/tekautoday)
 ==========
 
 > Ten Years Ago, Today
@@ -21,7 +21,9 @@ We use:
 > If you don't already have Python 3 and virtualenv, you can install them with `brew install python3` and `pip install virtualenv`.
 
 ~~~sh
-# First, create a Python 3 virtual environment with virtualenv.
+# First, install all back-end development dependencies.
+pip install flake8
+# Create a Python 3 virtual environment with virtualenv.
 virtualenv -p python3 env
 # Then let's start it.
 source env/bin/activate
@@ -84,8 +86,12 @@ Then for each deploy:
 ~~~sh
 # Switch to the deploy branch.
 git checkout deploy
-# Rebase it from master.
-git rebase master
+# Merge it with master.
+git merge master
+# Rebuild the project.
+npm run build
+# Commit the new build.
+git add . && git commit -m 'Deploy latest version'
 # Push it to GitHub.
 git push origin deploy
 # Then push the code to Heroku.
@@ -100,3 +106,12 @@ Only when we set up the Heroku Dyno:
 heroku config:add BUILDPACK_URL=git://github.com/heroku/heroku-buildpack-python.git
 heroku ps:scale web=1
 ~~~
+
+## Scripts
+
+Our `scripts/` rely on [pyDNZ](https://github.com/fogonwater/pydnz) to access the DNZ API. An [API key](http://www.digitalnz.org/developers) is also necessary.
+
+```sh
+export DNZ_KEY=<YOUR API KEY>
+python scripts/dnz-fetch.py
+``

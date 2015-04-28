@@ -5,18 +5,13 @@
 
 html {
   background-color: $colorGray1;
+  margin: 0;
+  padding: 0;
 }
 
-.diagonal-bg {
-  &:before {
-    content: '';
-    background-color: $colorGray3;
-    top: 0;
-    height: 62%;
-    width: 100%;
-    position: fixed;
-    z-index: -1000;
-  }
+body {
+  padding: 0;
+  margin: 0;
 }
 
 img, div {
@@ -27,13 +22,21 @@ img, div {
   height: 0%;
   width: 100%;
   display: block;
+  margin-top: 7em;
   margin-bottom: 0;
   padding-bottom: 0;
-
-  border: 2px solid;
-  border-bottom: 0 solid;
-
 }
+
+.placeholder-calendar {
+  width: 100%;
+  padding: 30% 20%;
+  text-align: center;
+  background-color: transparent;
+  border: 2px solid $black;
+  color: $white;
+  margin-bottom: 2em;
+}
+
 
 .section {
   width: 100%;
@@ -43,12 +46,20 @@ img, div {
   padding: 0 8%;
 }
 
+.top-neg-margin-xl {
+  margin-top: 0;
+  @media #{$grid-mobile} {
+    margin-top: -7em;
+  }
+}
+
 .section--content {
   margin: 0 auto;
   padding: 4% 0;
 
   &__title {
     padding-top: 0;
+    margin-top: 0;
   }
 }
 
@@ -92,8 +103,12 @@ img, div {
   }
 }
 
-.section--content-border {
+.fixed-title {
+  position: fixed;
+  top: 0.925em;
+}
 
+.section--content-border {
   &:before {
     content: '';
     width: 60px;

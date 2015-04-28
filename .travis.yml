@@ -1,0 +1,9 @@
+language: python
+python:
+  - 3.4
+install:
+  - gem install scss-lint
+  - pip install flake8
+  - npm install
+script:
+  - npm test
