@@ -31,4 +31,7 @@ env
 
 # Compiled files directories
 src/static/css
-src/static/js
+
+# Python debugging
+__pycache__
+*.pyc

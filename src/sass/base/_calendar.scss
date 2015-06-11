@@ -1,0 +1,33 @@
+$column-spacing: 5em / 7;
+
+.calendar {
+    text-align: center;
+    border: 0;
+    border-spacing: 0;
+    table-layout: fixed;
+    user-select: none;
+}
+
+.calendar tr {
+    padding: $column-spacing .5em $column-spacing 0;
+}
+
+.week--current {
+    background-color: rgba(0, 0, 0, .2);
+}
+
+.calendar .day {
+    display: block;
+    padding: 12px;
+    font-size: .875rem;
+    text-align: center;
+    text-decoration: none;
+}
+
+.day--today {
+    background-color: rgba(0, 0, 0, .2);
+}
+
+// .calendar tr {
+// 	border-bottom: 1px solid $black;
+// }

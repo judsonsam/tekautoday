@@ -1,45 +1,67 @@
-import os
-import json
-import random
+from os import environ
 import flask
-import requests
-import hashlib
 
-DNZ_URL = 'http://api.digitalnz.org/v3/records/'
-DNZ_KEY = os.environ.get('DNZ_KEY')
-records = {}
+import records
+import utils
+import filters
+import feed
 
-# TODO This should be switched to records associated with days.
-# Create a hash table of all records.
-for record in json.loads(open('data/records-2015.json').read())['records']:
-    record_hash = hashlib.md5(str(record['id']).encode('utf-8')).hexdigest()
-    records[record_hash] = record
+app = flask.Flask(__name__, static_folder='static', static_url_path='')
+app.register_blueprint(filters.blueprint)
+app.register_blueprint(feed.blueprint)
 
-app = flask.Flask(__name__)
+app.jinja_env.trim_blocks = True
+app.jinja_env.lstrip_blocks = True
 
 
 @app.route('/')
 def index():
-    image = flask.url_for('static', filename='img/placeholder-clouds-fog-haze-5086.jpeg')
-    return flask.render_template('index.html', image=image)
+    cache = utils.update_record_cache()
+    context = utils.format_response(cache['record'], cache['metadata'])
+
+    return flask.render_template('index.html', **context)
 
 
-@app.route('/hello')
-def hello():
-    return 'hello'
+@app.route('/record/<record_hash>')
+def record(record_hash):
+    record = records.get_record_by_hash(record_hash)
+    metadata = utils.get_metadata(record)
+    context = utils.format_response(record, metadata)
+
+    return flask.render_template('index.html', **context)
 
 
-@app.route('/random')
-def random_record():
-    record_hash = random.choice(list(records.keys()))
-    image = get_metadata(records[record_hash]['id'])['thumbnail_url']
-    return flask.render_template('index.html', image=image)
+@app.route('/api/record/')
+def api_index():
+    cache = utils.update_record_cache()
+
+    return flask.jsonify(**cache['metadata'])
 
 
-def get_metadata(id):
-    url = DNZ_URL + '{id}.json?api_key={key}'.format(id=id, key=DNZ_KEY)
-    return requests.get(url).json()['record']
+@app.route('/api/record/<record_hash>')
+def api_record(record_hash):
+    metadata = utils.get_metadata(records.get_record_by_hash(record_hash))
+
+    return flask.jsonify(**metadata)
+
+
+@app.errorhandler(500)
+def internal_error(error):
+    context = utils.format_error_response(error)
+
+    return flask.render_template('error.html', **context)
+
+
+@app.errorhandler(404)
+def not_found(error):
+    context = utils.format_error_response(error)
+
+    return flask.render_template('error.html', **context)
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    port = int(environ.get('PORT', 5000))
+    debug = environ.get('ENV', 'development') == 'development'
+
+    records.load_records()
+    cache = utils.update_record_cache()
+    app.run(host='0.0.0.0', port=port, debug=debug)

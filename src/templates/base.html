@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+
+    <title>Tekau Today — New Zealand, 10 years ago</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Tekau Today">
+    <meta name="application-name" content="Tekau Today">
+
+    <meta http-equiv="cleartype" content="on">
+
+    <meta name="description" content="Tekau Today — New Zealand, 10 years ago. We showcase interesting, random content from 10 years ago, today.">
+    <meta name="author" content="Sam Judson and Thibaud Colas">
+
+    <link href="/atom" rel="alternate" title="Tekau Today"  type="application/atom+xml">
+</head>
+<body role="document">
+
+    <header class="section">
+        {% block header %}
+            <div class="section--content__title">
+                <div class="hero-title grid">
+                    <div class="col-2-3">
+                        <a href="/"><h1 class="fixed-title">Tekau <br>Today</h1></a>
+                        <p>New Zealand, 10 years ago</p>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+    </header>
+
+    <section class="section margin-top-xl" role="main">
+        {% block content %}
+        {% endblock %}
+    </section>
+
+    <footer class="section footer">
+        <div class="section--content grid">
+            <div class="col-1-3 section--content-border">
+                <h3>About</h3>
+                <p>Tekau Today is driven by <a href="http://www.digitalnz.org/" target="_blank" rel="external">DigitalNZ</a>. We showcase interesting, random content from 10 years ago, today.</p>
+            </div>
+            <div class="col-1-6 footer-p">
+                <p>Copyright 2015 <a href="/">Tekau Today</a></p>
+            </div>
+            <div class="col-1-6 footer-p">
+                <p>Created by <a href="http://www.samjudson.com" target="_blank" rel="author">Sam Judson</a> and <a href="https://thib.me" target="_blank" rel="author">Thibaud Colas</a>. <br>Source code <a href="https://github.com/judsonsam/tekautoday" target="_blank">available on GitHub</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-62058429-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
+
+</html>

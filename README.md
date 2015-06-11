@@ -2,52 +2,57 @@
 ==========
 
 > Ten Years Ago, Today
+>
+> Tekau Today is an experiment built on top of the [DigitalNZ API](http://digitalnz.org/developers).
 
 - [Production site](http://www.tekautoday.xyz/)
 - [Trello board](https://trello.com/b/ytZCXTVM/tekau-today)
 
+Here are examples from the site:
+
+- [07 May 2005](http://www.tekautoday.xyz/record/ddafdd0330ffb48b082d132a348648d2)
+- [25 July 2005](http://www.tekautoday.xyz/record/8090b73800d9bb93beaf4a36f2a1f42a)
+- [27 January 2005](http://www.tekautoday.xyz/record/bf117d33a0631e1beafa38c5b8ac5d35)
+
 ## Installation
 
-These installation instructions should be executed inside the project root.
+> You first need to clone the project on your computer.
 
-### Back-end setup
+From the command-line:
 
-We use:
+```sh
+cd ~/Development/sites/
+git clone git@github.com:judsonsam/tekautoday.git
+cd tekautoday
+```
+
+Our main dependencies are:
 
 - [Python 3](https://www.python.org/) programming language.
 - [Flask](http://flask.pocoo.org/) web framework.
 - [virtualenv](https://virtualenv.pypa.io/en/latest/) and [pip](https://pypi.python.org/pypi/pip).
+- [Node.js](nodejs.org) JavaScript runtime and the [npm](https://www.npmjs.com/) ecosystem.
+- [Browserify](http://browserify.org/) dependency builder and the [Babel](https://babeljs.io/) ES6/ES2015 transpiler.
 
-> If you don't already have Python 3 and virtualenv, you can install them with `brew install python3` and `pip install virtualenv`.
+> If you don't already have those installed, use `brew install python node`.
 
-~~~sh
-# First, install all back-end development dependencies.
-pip install flake8
+To install our dependencies, run:
+
+```sh
+pip install flake8 virtualenv
+npm install --global gulp browserify eslint jscs browser-sync csscomb
+gem install scss_lint
 # Create a Python 3 virtual environment with virtualenv.
 virtualenv -p python3 env
 # Then let's start it.
 source env/bin/activate
 # And install all our python dependencies.
 pip install -r requirements.txt
-~~~
-
-### Front-end setup
-
-We use:
-
-- [Node.js](nodejs.org) JavaScript runtime and the [npm](https://www.npmjs.com/) ecosystem.
-- [Browserify](http://browserify.org/) dependency builder and the [Babel](https://babeljs.io/) ES6/ES2015 transpiler.
-- [React](https://facebook.github.io/react/) UI library, [jQuery](http://jquery.com/) and the [lodash](https://lodash.com/) utility library.
-
-> If you don't already have Node and npm installed, you can get them with `brew install node`.
-
-~~~sh
-# First, install all front-end development global dependencies.
-npm install --global gulp browserify eslint jscs browser-sync
-gem install scss-lint
-# Then, install all project dependencies.
+# Then, install all npm dependencies.
 npm install
-~~~
+# If that's your thing, install the git hooks:
+./hook/deploy
+```
 
 ## Working on the project
 
@@ -56,6 +61,8 @@ npm install
 ~~~sh
 # Always start by activating Python's virtualenv.
 source env/bin/activate
+# Export your DNZ API Key
+export DNZ_KEY=<YOUR API KEY>
 # Then start the server and the development tools.
 npm run start
 # Voilà!
@@ -92,9 +99,9 @@ git merge master
 npm run build
 # Commit the new build.
 git add . && git commit -m 'Deploy latest version'
-# Push it to GitHub.
+# Push it to GitHub, and Travis will pick it up.
 git push origin deploy
-# Then push the code to Heroku.
+# Alternatively, manual deploy
 git push heroku deploy:master
 ~~~
 
@@ -103,8 +110,17 @@ git push heroku deploy:master
 Only when we set up the Heroku Dyno:
 
 ~~~sh
+heroku config:add ENV=production
+heroku config:add DNZ_KEY=<Production DNZ API KEY>
 heroku config:add BUILDPACK_URL=git://github.com/heroku/heroku-buildpack-python.git
+heroku config:add TZ="Pacific/Auckland"
 heroku ps:scale web=1
+~~~
+
+To configure deployment from Travis:
+
+~~~sh
+travis setup heroku
 ~~~
 
 ## Scripts
@@ -113,5 +129,5 @@ Our `scripts/` rely on [pyDNZ](https://github.com/fogonwater/pydnz) to access th
 
 ```sh
 export DNZ_KEY=<YOUR API KEY>
-python scripts/dnz-fetch.py
-``
+python scripts/fetch.py
+```

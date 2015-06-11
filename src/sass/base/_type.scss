@@ -1,58 +1,96 @@
-// TYPE 
+// TYPE
 ///////////////////////////////////////
 ///////////////////////////////////////
 
 
-// Headers 
+// Headers
 ///////////////////////////////////////
 
-h1, h2, h3, h4, h5, h6, p, span {
-  margin: 0;
-  font-family: 'Helvetica Neue', arial, sans-serif;
-  color: $black;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span {
+    margin: 0;
+    font-family: 'Helvetica Neue', arial, sans-serif;
+    color: $black;
 }
 
-h1 {
-  font-size: 8rem;    
-  letter-spacing: -1px;
-  line-height: 0.875;
+h1,
+.h1 {
+    font-size: 5rem;
+    line-height: .825;
+    letter-spacing: -1px;
+    @media #{$grid-mobile} {
+        font-size: 6.5rem;
+    }
+    @media #{$grid-medium} {
+        font-size: 8rem;
+    }
 }
 
 h2 {
-  margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
 }
 
 h3 {
-  margin-bottom: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+a,
+a * {
+    color: $black;
+    text-decoration: underline;
+
+    transition: opacity 1s ease;
+
+    &:hover,
+    &:focus {
+        text-decoration: none;
+        opacity: .5;
+
+        transition: opacity .25s;
+    }
+}
+
+a h1,
+a h2,
+a h3,
+a h4,
+a h5,
+a h6 {
+    text-decoration: none;
 }
 
 
-// Body 
+// Body
 ///////////////////////////////////////
 
 p {
-  font-size: 0.875rem;
-  line-height: 1.5;
+    font-size: .875rem;
+    line-height: 1.5;
 }
 
 .large-p {
-  font-size: 1.5rem;
-  line-height: 1.3;
+    font-size: 1.5rem;
+    line-height: 1.3;
 }
 
 .footer-p {
-  padding-top: 2.675rem;
+    padding-top: 3.8rem;
+}
+
+.404-p {
+    font-size: 6rem;
 }
 
 
-// Colour 
+// Colour
 ///////////////////////////////////////
 
 .white {
-  color: $white;
+    color: $white;
 }
-
-
-
-
-
